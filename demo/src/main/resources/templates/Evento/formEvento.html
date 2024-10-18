@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Evento</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Fundo suave */
+        }
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        h1 {
+            color: #1C1C1C; /* Cor do título */
+            text-align: center; /* Centraliza o título */
+        }
+        .input-field {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        label {
+            color: #F4A460; /* SandyBrown para as labels */
+            font-weight: bold;
+        }
+        input {
+            background-color: #e8f5e9; /* Fundo claro para os inputs */
+            border: 2px solid #4caf50; /* Borda verde */
+            color: #333; /* Texto escuro nos inputs */
+        }
+        input:focus {
+            border: 2px solid #388e3c; /* Verde mais escuro ao focar */
+            box-shadow: 0 1px 0 #ffcc00;
+        }
+        .datepicker {
+            background-color: #e8f5e9; /* Fundo claro para o datepicker */
+            color: #333; /* Texto escuro */
+            border: 2px solid #4caf50; /* Borda verde */
+            border-radius: 4px;
+            padding: 10px;
+            transition: border-color 0.3s;
+        }
+        .datepicker:focus {
+            border-color: #009688; /* Borda ao focar */
+            box-shadow: 0 0 5px rgba(0, 150, 136, 0.5);
+        }
+        .btn.red {
+            background-color: #e74c3c; /* Vermelho mais escuro */
+        }
+        .btn.red:hover {
+            background-color: #c0392b; /* Vermelho ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cadastrar Eventos</h1>
+    <!-- Botão para abrir o modal -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modalCadastrarEvento">Cadastrar Evento</a>
+
+    <!-- Modal Structure -->
+    <div id="modalCadastrarEvento" class="modal">
+        <div class="modal-content">
+            <h4>Cadastrar Evento</h4>
+            <form th:action="@{/cadastrarEvento}" method="post">
+                <div class="input-field">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="input-field">
+                    <label for="local">Local:</label>
+                    <input type="text" id="local" name="local" required>
+                </div>
+                <div class="input-field">
+                    <label for="data">Data:</label>
+                    <input type="text" id="data" name="data" class="datepicker" required>
+                </div>
+                <div class="input-field">
+                    <label for="horario">Horário:</label>
+                    <input type="text" id="horario" name="horario" required>
+                </div>
+                <button type="submit" class="btn red">Cadastrar Evento</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:if="${mensagem}" class="card-panel teal lighten-2" style="margin-top: 20px;">
+        <span class="white-text" th:text="${mensagem}"></span>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        M.Modal.init(elems);
+
+        var dateElems = document.querySelectorAll('.datepicker');
+        var options = {
+            format: 'dd-mm-yyyy',
+            minDate: new Date(1960, 0, 1), // 1 de janeiro de 1960
+            maxDate: new Date(2050, 11, 31) // 31 de dezembro de 2050
+        };
+        M.Datepicker.init(dateElems, options);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Evento</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Fundo mais suave e claro */
+            background-size: cover; /* Faz a imagem cobrir todo o fundo */
+            background-position: center; /* Centraliza a imagem */
+            background-repeat: no-repeat; /* Não repete a imagem */
+            height: 100vh; /* Altura total da janela */
+            margin: 0; /* Remove margens */
+        }
+        .container {
+            margin-top: 20px;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com transparência */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50; /* Azul escuro para o título */
+        }
+        .btn-red {
+            background-color: #e74c3c; /* Vermelho */
+        }
+        .card-panel {
+            margin-bottom: 20px;
+            border-radius: 5px; /* Cantos arredondados */
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse; /* Para evitar espaçamento entre bordas */
+            border: 2px solid black; /* Borda preta para a tabela */
+        }
+        th {
+            background-color: #e67e22; /* Topo laranja */
+            color: white; /* Texto branco */
+            padding: 10px; /* Espaçamento interno */
+            border: 2px solid black; /* Borda preta para o cabeçalho */
+        }
+        td {
+            border: 2px solid black; /* Borda preta para as células */
+            padding: 10px; /* Espaçamento interno */
+        }
+        .striped tbody tr:hover {
+            background-color: #ecf0f1; /* Efeito de hover mais suave */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Cadastrar Eventos</h1>
+    <li>
+        <a href="/cadastrarEvento" class="waves-effect waves-light btn btn-red">
+            <i class="material-icons left"></i>Entre faça o seu Cadastro
+        </a>
+    </li>
+    <div th:if="${mensagem}" class="card-panel teal lighten-2">
+        <i class="material-icons left white-text">info</i>
+        <span class="white-text" th:text="${mensagem}"></span>
+    </div>
+
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Local</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evento : ${evento}" class="hoverable">
+            <td>
+                <a href="#" class="btn-flat waves-effect" th:text="${evento.nome}"></a>
+            </td>
+            <td th:text="${evento.local}"></td>
+            <td th:text="${evento.data}"></td>
+            <td th:text="${evento.horario}"></td>
+            <td>
+                <a th:href="@{/deletarEvento(codigo=${evento.codigo})}" class="btn red waves-effect">Deletar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
